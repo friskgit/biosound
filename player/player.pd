@@ -1,0 +1,18 @@
+#N canvas 966 1203 950 421 16;
+#X msg 147 153 disconnect;
+#X floatatom 150 303 0 0 0 0 - - -;
+#X obj 150 277 netsend -u;
+#X floatatom 167 213 0 0 0 0 - - -;
+#X text 222 48 UDP \, ascii;
+#X obj 199 308 print backward;
+#X msg 147 72 connect localhost 3333;
+#X msg 167 240 send gate \$1;
+#X obj 181 188 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X connect 0 0 2 0;
+#X connect 2 0 1 0;
+#X connect 2 1 5 0;
+#X connect 3 0 7 0;
+#X connect 6 0 2 0;
+#X connect 7 0 2 0;
+#X connect 8 0 3 0;

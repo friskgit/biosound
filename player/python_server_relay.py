@@ -1,5 +1,7 @@
 import socket
 import re
+import RPi.GPIO as GPIO
+import time
 
 localIP     = "127.0.0.1"
 localPort   = 3333
@@ -13,6 +15,17 @@ UDPServerSocket.bind((localIP, localPort))
 
 print("UDP server up and listening")
 
+Relay = [5, 6, 13, 16, 19, 20, 21, 26]
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+
+for i in range(0,8):
+    GPIO.setup(Relay[i], GPIO.OUT)
+    GPIO.output(Relay[i], GPIO.HIGH)
+
+print("GPIO setup and ready")
+
 # Listen for incoming datagrams
 
 while(True):
@@ -23,6 +36,9 @@ while(True):
 
     gate = re.findall('[0-9]+', clientMsg)
     print(gate[0])
-
+    GPIO.output(Relay[gate[0]], GPIO.LOW)
+    time.sleep(0.1)
+    GPIO.output(Relay[gate[0]], GPIO.HIGH)
+    
     clientIP  = "Client IP Address:{}".format(address)
     
