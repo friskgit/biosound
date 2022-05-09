@@ -38,7 +38,7 @@ while(True):
     gateNdx = int(gate[0])
     print(gateNdx)
     GPIO.output(Relay[gateNdx], GPIO.LOW)
-    time.sleep(0.5)
+    time.sleep(0.1)
     GPIO.output(Relay[gateNdx], GPIO.HIGH)
     
     clientIP  = "Client IP Address:{}".format(address)
