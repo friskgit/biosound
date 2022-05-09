@@ -1,14 +1,16 @@
-#N canvas 8 1203 1908 949 16;
+#N canvas 1924 1203 1908 949 16;
 #X obj 29 105 float;
 #X floatatom 29 163 5 0 0 0 - - -;
 #X obj 29 77 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 29 135 + 1;
-#X msg 95 224 0;
-#X obj 26 37 inlet;
+#X msg 51 234 0;
+#X obj 29 46 inlet;
 #X obj 29 274 outlet;
-#X obj 95 196 sel \$1;
-#X obj 165 276 outlet;
+#X obj 51 206 sel \$1;
+#X obj 94 274 outlet;
+#X text 99 244 bang on reset;
+#X text 23 306 current index;
 #X connect 0 0 3 0;
 #X connect 1 0 6 0;
 #X connect 1 0 7 0;

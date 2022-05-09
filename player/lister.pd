@@ -1,10 +1,11 @@
-#N canvas 2882 147 950 2005 16;
+#N canvas 1924 1203 1908 949 16;
 #X obj 69 121 list split 1;
 #X obj 130 157 list append;
 #X floatatom 71 154 5 0 0 0 - - -;
-#X obj 70 39 inlet;
-#X obj 71 181 outlet;
+#X obj 129 42 inlet;
+#X obj 71 188 outlet;
 #X msg 69 86 1 2 3 4;
+#X obj 44 42 loadbang;
 #X connect 0 0 2 0;
 #X connect 0 1 1 1;
 #X connect 0 2 5 0;
@@ -12,3 +13,4 @@
 #X connect 2 0 4 0;
 #X connect 3 0 1 0;
 #X connect 5 0 0 0;
+#X connect 6 0 5 0;
