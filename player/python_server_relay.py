@@ -35,10 +35,11 @@ while(True):
     clientMsg = format(message)
 
     gate = re.findall('[0-9]+', clientMsg)
-    print(gate[0])
-    GPIO.output(Relay[gate[0]], GPIO.LOW)
-    time.sleep(0.1)
-    GPIO.output(Relay[gate[0]], GPIO.HIGH)
+    gateNdx = int(gate[0])
+    print(gateNdx)
+    GPIO.output(Relay[gateNdx], GPIO.LOW)
+    time.sleep(0.5)
+    GPIO.output(Relay[gateNdx], GPIO.HIGH)
     
     clientIP  = "Client IP Address:{}".format(address)
     
