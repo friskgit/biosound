@@ -1,0 +1,11 @@
+#+begin_src scheme :results output :var pan=0
+  (use-modules (ice-9 format))
+  (define pi 3.141592654)
+    (display (list (cos (* pan (/ pi 2))) (sin (* pan (/ pi 2)))))
+#+end_src
+
+#+RESULTS:
+: (1.435723999607318e-9 -1.0)
+
+#+RESULTS:
+: 1
