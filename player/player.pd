@@ -1,12 +1,12 @@
-#N canvas 949 138 866 706 16;
-#X floatatom 542 199 0 0 0 0 - - -;
-#X obj 542 173 netsend -u;
-#X floatatom 559 109 0 0 0 0 - - -;
+#N canvas 942 180 920 706 16;
+#X floatatom 547 199 0 0 0 0 - - -;
+#X obj 547 173 netsend -u;
+#X floatatom 564 109 0 0 0 0 - - -;
 #X text 622 25 UDP \, ascii;
-#X obj 591 204 print backward;
+#X obj 644 201 print backward;
 #X msg 547 49 connect localhost 3333;
-#X msg 559 136 send gate \$1;
-#X obj 573 84 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X msg 564 136 send gate \$1;
+#X obj 564 84 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X floatatom 20 52 7 500 10000 2 - init_time base, f 7;
 #X text 11 97 fractions;
@@ -28,8 +28,8 @@
 #X obj 112 278 metro;
 #X obj 207 278 metro;
 #X obj 291 278 metro;
-#X obj 160 51 tgl 25 0 start empty start -60 12 0 10 -262144 -1 -1
-0 1;
+#X obj 160 51 tgl 25 0 start start_me start -60 12 0 10 -262144 -1
+-1 0 1;
 #X obj 28 246 r start;
 #X obj 112 245 r start;
 #X obj 207 244 r start;
@@ -44,10 +44,10 @@
 -1 -1;
 #X text 124 119 2/5;
 #X obj 120 174 * 5;
-#X msg 28 551 4;
-#X msg 114 550 1;
-#X msg 206 554 1;
-#X msg 292 551 2;
+#X msg 28 551 1;
+#X msg 114 550 2;
+#X msg 206 554 3;
+#X msg 292 551 4;
 #X obj 121 436 lister;
 #X msg 121 464 set \$1;
 #X obj 213 436 lister;
@@ -67,7 +67,7 @@
 #X obj 234 314 * 0.3;
 #X obj 138 313 * 0.2;
 #X text 13 26 base pulse in ms;
-#N canvas 1924 1203 1908 949 init 0;
+#N canvas 283 186 653 293 init 0;
 #X msg 121 106 set 2;
 #X msg 206 113 set 3;
 #X msg 274 114 set 4;
@@ -76,10 +76,14 @@
 #X obj 218 199 send add3;
 #X obj 125 199 send add2;
 #X msg 34 105 set 1;
-#X obj 40 48 loadbang;
-#X obj 416 60 loadbang;
-#X msg 416 89 2000;
-#X obj 412 134 s init_time;
+#X obj 99 15 loadbang;
+#X obj 363 27 loadbang;
+#X obj 562 133 s init_time;
+#X msg 566 88 4500;
+#X obj 465 104 del 1000;
+#X obj 465 133 s connect;
+#X obj 367 105 del 3000;
+#X obj 367 134 s start_me;
 #X connect 0 0 6 0;
 #X connect 1 0 5 0;
 #X connect 2 0 4 0;
@@ -88,8 +92,12 @@
 #X connect 8 0 0 0;
 #X connect 8 0 1 0;
 #X connect 8 0 2 0;
-#X connect 9 0 10 0;
-#X connect 10 0 11 0;
+#X connect 9 0 11 0;
+#X connect 9 0 12 0;
+#X connect 9 0 14 0;
+#X connect 11 0 10 0;
+#X connect 12 0 13 0;
+#X connect 14 0 15 0;
 #X restore 212 52 pd init;
 #X obj 57 502 r add1;
 #X obj 151 501 r add2;
@@ -103,6 +111,7 @@
 #X obj 29 404 counter 5;
 #X obj 144 404 counter 3;
 #X obj 243 403 counter 3;
+#X obj 547 3 r connect;
 #X connect 1 0 0 0;
 #X connect 1 1 4 0;
 #X connect 2 0 6 0;
@@ -172,3 +181,4 @@
 #X connect 72 1 43 0;
 #X connect 73 1 45 0;
 #X connect 74 1 47 0;
+#X connect 75 0 5 0;

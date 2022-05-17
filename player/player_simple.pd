@@ -1,4 +1,4 @@
-#N canvas 774 176 950 421 16;
+#N canvas 902 104 950 421 16;
 #X msg 147 153 disconnect;
 #X floatatom 150 303 0 0 0 0 - - -;
 #X obj 150 277 netsend -u;
@@ -15,6 +15,9 @@
 #X msg 480 193 6;
 #X msg 243 193 1;
 #X msg 183 194 0;
+#X obj 465 59 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 482 110 metro 2000;
 #X connect 0 0 2 0;
 #X connect 2 0 1 0;
 #X connect 2 1 4 0;
@@ -29,3 +32,5 @@
 #X connect 12 0 6 0;
 #X connect 13 0 6 0;
 #X connect 14 0 6 0;
+#X connect 15 0 16 0;
+#X connect 16 0 10 0;
