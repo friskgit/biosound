@@ -1,0 +1,10 @@
+[Unit]
+Description=Rain installation Service
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/bin/sh /home/pi/Documents/rain/biosound/player/relay_script.sh  
+
+[Install]
+WantedBy=multi-user.target

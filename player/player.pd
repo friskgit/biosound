@@ -1,4 +1,4 @@
-#N canvas 942 180 920 706 16;
+#N canvas 622 173 920 706 16;
 #X floatatom 547 199 0 0 0 0 - - -;
 #X obj 547 173 netsend -u;
 #X floatatom 564 109 0 0 0 0 - - -;
@@ -29,7 +29,7 @@
 #X obj 207 278 metro;
 #X obj 291 278 metro;
 #X obj 160 51 tgl 25 0 start start_me start -60 12 0 10 -262144 -1
--1 0 1;
+-1 1 1;
 #X obj 28 246 r start;
 #X obj 112 245 r start;
 #X obj 207 244 r start;
@@ -44,10 +44,10 @@
 -1 -1;
 #X text 124 119 2/5;
 #X obj 120 174 * 5;
-#X msg 28 551 1;
-#X msg 114 550 2;
-#X msg 206 554 3;
-#X msg 292 551 4;
+#X msg 28 551 4;
+#X msg 114 550 3;
+#X msg 206 554 2;
+#X msg 292 551 3;
 #X obj 121 436 lister;
 #X msg 121 464 set \$1;
 #X obj 213 436 lister;
@@ -112,6 +112,34 @@
 #X obj 144 404 counter 3;
 #X obj 243 403 counter 3;
 #X obj 547 3 r connect;
+#N canvas 131 220 450 300 sound 0;
+#X obj 90 220 dac~;
+#X obj 98 78 noise~;
+#X obj 98 163 *~;
+#X obj 236 125 pack 0 50;
+#X obj 236 170 line~;
+#X obj 238 17 inlet;
+#X obj 333 8 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 235 82 0.3;
+#X msg 293 82 0;
+#X obj 333 39 del 100;
+#X msg 293 256 \; pd dsp 1;
+#X obj 293 217 loadbang;
+#X connect 1 0 2 0;
+#X connect 2 0 0 0;
+#X connect 2 0 0 1;
+#X connect 3 0 4 0;
+#X connect 4 0 2 1;
+#X connect 5 0 7 0;
+#X connect 5 0 9 0;
+#X connect 6 0 7 0;
+#X connect 6 0 9 0;
+#X connect 7 0 3 0;
+#X connect 8 0 3 0;
+#X connect 9 0 8 0;
+#X connect 11 0 10 0;
+#X restore 171 656 pd sound;
 #X connect 1 0 0 0;
 #X connect 1 1 4 0;
 #X connect 2 0 6 0;
@@ -146,9 +174,13 @@
 #X connect 31 0 26 0;
 #X connect 32 0 27 0;
 #X connect 33 0 39 0;
+#X connect 33 0 76 0;
 #X connect 34 0 40 0;
+#X connect 34 0 76 0;
 #X connect 35 0 41 0;
+#X connect 35 0 76 0;
 #X connect 36 0 42 0;
+#X connect 36 0 76 0;
 #X connect 38 0 21 0;
 #X connect 39 0 67 0;
 #X connect 40 0 67 0;
