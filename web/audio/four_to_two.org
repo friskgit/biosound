@@ -1,11 +1,68 @@
-#+begin_src scheme :results output :var pan=0
+Pan the four signals according to:
+
+#+name: signals
+| sig |  pan |                                        |
+|-----+------+----------------------------------------|
+|   0 | 0.15 | 0.9723699203904945 0.23344536388582085 |
+|   1 |  0.4 | 0.8090169943267247 0.587785252358846   |
+|   2 |  0.6 | 0.5877852521929139 0.8090169944472815  |
+|   3 | 0.85 | 0.23344536368638455 0.972369920438375  |
+|-----+------+----------------------------------------|
+
+#+begin_src scheme :results output :var pan=0.85
   (use-modules (ice-9 format))
   (define pi 3.141592654)
     (display (list (cos (* pan (/ pi 2))) (sin (* pan (/ pi 2)))))
 #+end_src
 
 #+RESULTS:
-: (1.435723999607318e-9 -1.0)
+: (0.23344536368638455 0.972369920438375)
 
 #+RESULTS:
 : 1
+
+* Script to record audio
+The following two code blocks tangles together to record_script.sh
+
+Record the four microphones into one interleaved file
+#+begin_src shell :shebang #!/bin/bash :var sec=10 :tangle record_script.sh
+  date_stamp=`date +"%F_%H%M%S"`
+  suffix=".wav"
+  file_name="$date_stamp$suffix"
+  echo "Recording to $sec seconds of audio to ${file_name}"
+  arecord -D plughw:1,0 -f cd -c 4 -d $sec $file_name
+#+end_src
+
+Take the recorded file, mix it down to a stereo file, filter it and add a reverb, and finally copy it to the server.
+#+begin_src shell :shebang #!/bin/bash :tangle record_script.sh
+  echo "Creating stereo file"
+  sox $file_name output_stereo.wav remix 1v0.9723,2v0.80901,3v0.5877,4v0.233445 1v0.23344,2v0.5877,3v0.80901,4v0.97236
+  echo "High pass filter, reverb and fades"
+  sox output_stereo.wav filtered_stereo.wav channels 2 highpass 600 pad 0 3 reverb 50 50 75 fade 1
+  echo "Upload the file to server"
+  scp filtered_stereo.wav henrikfr@henrikfrisk.com:www/rain/audio/$file_name
+  echo "Cleaning up."
+  rm ./output_stereo.wav
+  rm ./filtered_stereo.wav
+  rm ./$file_name
+  echo "Done"
+#+end_src
+
+#+RESULTS:
+
+Set up the cron job on the raspberry pi.
+#+begin_src shell :shebang#!/bin/bash :tangle cron_script.sh
+  script="/home/pi/Documents/rain/biosound/player/cron/record_script.sh"
+  #  chmod +x $script
+  job="0 8,16 * * * $script > /home/pi/cron_log.log 2>&1"
+  echo "$job"
+  # remove the previous version of this cron job if it exists
+  crontab -l | grep -v $script | crontab -
+  crontab -l > cron_bkp
+  echo $job >> cron_bkp
+  crontab cron_bkp
+  rm cron_bkp
+  #+end_src
+
+  #+RESULTS:
+  : 0 10 * * * /home/pi/Documents/rain/biosound/player/cron/record_script.sh >/dev/null 2>&1
