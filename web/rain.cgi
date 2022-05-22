@@ -26,10 +26,10 @@ print "</head>";
 # Body
 print "<body>";
 print "<div id=\'app\' class=\'center\'>";
-print "<h1>rain vapour</h1>";
-print "<div class=\'center\'><p>by Henrik Frisk</p></div>";
-print "<h2>Ulvh&auml;lls H&auml;llar, 2022</h2>";
-print "<p>Listen to earlier versions of the tunings</p>";
+print "<h1>rain will evaporate</h1>";
+print "<p class='raise'><em>Henrik Frisk, 2022</em></p>";
+print "<h2>Ulvh&auml;lls H&auml;llar, Str&auml;gn&auml;s</h2> <p class='small'>(<em><a href='https://goo.gl/maps/Miwiei1KqCx2BUAYA'>59.36309815334226, 17.042373214228594</a></em>)</p>";
+print "<p>Listen to earlier versions of the tunings:</p>";
 
 print "<div id=\'audio\'>";
 for my $i (@files) {
