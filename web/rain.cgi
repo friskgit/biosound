@@ -4,20 +4,13 @@ use strict;
 use File::stat;
 use warnings;
 
-sub get_sorted_files {
-   my $path = shift;
-   opendir my($dir), $path or die "can't opendir $path: $!";
-   my %hash = map {$_ => (stat($_))[9] || undef} # avoid empty list
-   map  { "$path$_" }
-   grep { !/^\.+$/ }
-   readdir $dir;
-   closedir $dir;
-   return %hash;
-}
 
 print "Content-type:text/html\r\n\r\n";
 
-my %files = get_sorted_files("/home/h/henrikfr/www/rain/audio/");
+my @files;
+my @files_t;
+my @filedata;
+my $dirname = "/home/h/henrikfr/www/rain/audio/";
 my @tokens;
 my $date;
 my $hour;
@@ -45,9 +38,24 @@ print "<p>Listen to earlier versions of the tunings:</p>";
 
 print "<div id=\'audio\'>";
 
-foreach my $key (sort{$files{$b} <=> $files{$a}} keys %files) {
+
+opendir my($dir), $dirname or die "Could not open directory [$dirname]: $!";
+@files= map{s/\.[^.]+$//;$_}grep {/\.mp3$/} readdir $dir;
+# @files = readdir $dir;
+closedir($dir);
+
+foreach my $file (@files_t) {
+    # Get information (including last modified date) about file
+    @filedata = stat($dirname."/".$file);
+    # Push this into a new array with date at front
+    push(@files, $filedata[9].$file);
+}
+
+@files = reverse(sort(@files));
+		 
+foreach my $key (@files) {
     @tokens = split(/_/, $key);
-    $date = substr(@tokens[0], 32, 10);
+    $date = substr(@tokens[0], 0, 10);
     $hour = substr(@tokens[1], 0, 2);
     $min = substr(@tokens[1], 2, 2);
     $sec = substr(@tokens[1], 4, 2);
@@ -55,7 +63,7 @@ foreach my $key (sort{$files{$b} <=> $files{$a}} keys %files) {
     print $date . " at " . $hour . ":" . $min . ":" . $sec;
     print "</p>";
     print "<audio controls>\n";
-    print "<source src=\'../rain/audio/$key\' type=\'audio/mp3\'>";
+    print "<source src=\'../rain/audio/$key.mp3\' type=\'audio/mp3\'>";
     print "Your browser does not support the audio element.";
     print "</audio>";
     print "</p>";
