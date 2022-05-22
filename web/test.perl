@@ -6,7 +6,7 @@ use Time::localtime;
 
 
 print "Content-type:text/html\r\n\r\n";
-opendir my $dir, "/home/h/henrikfr/www/rain/audio" or die "Cannot open directory: $!";
+opendir my $dir, "./audio/" or die "Cannot open directory: $!";
 # opendir my $dir, "./" or die "Cannot open directory: $!";
 my @files = grep { !/^\.+$/ } readdir $dir;
 my @tokens;
@@ -15,41 +15,24 @@ my $min;
 my $sec;
 
 # Head
-print "<!DOCTYPE html>";
-print "<html lang=\'en\'>";
-print "<head>";
-print "<meta charset=\'utf-8\' />";
-print "<meta http-equiv=\'X-UA-Compatible\' content=\'IE=edge\' />";
-print "<meta name=\'viewport\' content=\'width=device-width, initial-scale=1\' />";
-print "<title>rain vaporprint</title>";
-print "<link rel=\'stylesheet\' type=\'text/css\' href=\'../rain/vapour.css\' />";
-print "</head>";
-
 # Body
-print "<body>";
-print "<div id=\'app\'>";
-print "<h1>rain vapour</h1>";
-print "<p>rain vapour is a piece that has no beginning and no end.</p>";
-print "<p>Listen to earlier versions of the tuning</p>";
-print "</div>";
 
+my @sorted_list =
+    map  {$_->[0]}
+    sort { $b->[1] cmp $a->[1] }
+    map  { /([\d_]+)\.mp3$/ ? [$_,$1] : [$_, 0] }
+         @files;
 
-print "<div id=\'audio\'>";
-for my $i (@files) {
-    @tokens = split(/_/, $i);
-    $hour = substr(@tokens[1], 0, 2);
-    $min = substr(@tokens[1], 2, 2);
-    $sec = substr(@tokens[1], 4, 2);
-    print "<p>";
-    print @tokens[0] . ", at " . $hour . ":" . $min . ":" . $sec;
-    print "</p>";
-    print "<audio controls>\n";
-    print "<source src=\'../rain/audio/$i\' type=\'audio/mp3\'>";
-    print "Your browser does not support the audio element.";
-    print "</audio>";
-    print "</p>";
-}
-print "<\div>";
+print @sorted_list;
+
+# for my $i (@sorted_list) {
+#     @tokens = split(/_/, $i);
+#     $hour = substr(@tokens[1], 0, 2);
+#     $min = substr(@tokens[1], 2, 2);
+#     $sec = substr(@tokens[1], 4, 2);
+# #    print @tokens[0] . ", at " . $hour . ":" . $min . ":" . $sec;
+#     print "$i\n";
+# }
 closedir $dir;
 
 1;
