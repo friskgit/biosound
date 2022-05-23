@@ -3,7 +3,8 @@ sec='10'
 date_stamp=`date +"%F_%H%M%S"`
 suffix=".wav"
 file_name="$date_stamp$suffix"
-mp3_name=${file_name%.wav}".mp3"
+mp3_name="$date_stamp"".mp3"
+directory="/home/pi/Documents/rain/biosound/web/audio/rec/"
 echo "Recording to $sec seconds of audio to ${file_name}"
 echo "Encoding into $mp3_name"
 arecord -D plughw:1,0 -f cd -c 4 -d $sec $file_name
