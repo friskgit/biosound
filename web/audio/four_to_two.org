@@ -43,9 +43,9 @@ Take the recorded file, mix it down to a stereo file, filter it and add a reverb
   echo "High pass filter, reverb and fades"
   sox output_stereo.wav filtered_stereo.wav channels 2 highpass 600 pad 0 3 reverb 50 50 75 fade 1
   echo "Encode the file to mp3"
-  lame --preset medium $file_name $mp3_name
+  lame --preset medium filtered_stereo.wav $mp3_name
   echo "Upload the file to server"
-  scp $mp3_name henrikfr@henrikfrisk.com:www/rain/audio/$mp3_name
+  scp $mp3_name henrikfr@henrikfrisk.com:www/rain/audio/
   echo "Cleaning up."
   rm ./output_stereo.wav
   rm ./filtered_stereo.wav
