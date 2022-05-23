@@ -25,7 +25,7 @@ Pan the four signals according to:
 The following two code blocks tangles together to record_script.sh
 
 Record the four microphones into one interleaved file
-#+begin_src shell :shebang #!/bin/bash :var sec=10 :tangle record_script.sh
+#+begin_src shell :shebang #!/bin/bash :var sec=45 :tangle record_script.sh
   date_stamp=`date +"%F_%H%M%S"`
   suffix=".wav"
   file_name="$date_stamp$suffix"
