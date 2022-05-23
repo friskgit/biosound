@@ -20,5 +20,5 @@ echo "Cleaning up."
 rm ./output_stereo.wav
 rm ./filtered_stereo.wav
 rm ./$file_name
-rm ./mp3_name
+rm ./$mp3_name
 echo "Done"
