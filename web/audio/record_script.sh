@@ -16,11 +16,10 @@ sox output_stereo.wav filtered_stereo.wav channels 2 highpass 600 pad 0 3 reverb
 echo "Encode the file to mp3"
 lame --preset medium $file_name $mp3_name
 echo "Upload the file to server"
-scp filtered_stereo.wav henrikfr@henrikfrisk.com:www/rain/audio/$mp3_name
+scp $mp3_name henrikfr@henrikfrisk.com:www/rain/audio/$mp3_name
 echo "Cleaning up."
 rm ./output_stereo.wav
 rm ./filtered_stereo.wav
-rm ./$date_stamp"*"
-
-# rm ./$mp3_name
+rm ./$file_name
+rm ./$mp3_name
 echo "Done"
