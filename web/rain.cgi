@@ -34,7 +34,7 @@ print "<div id=\'app\' class=\'center\'>";
 print "<h1>rain will evaporate</h1>";
 print "<p class='raise'><em>Henrik Frisk, 2022</em></p>";
 print "<h2>Ulvh&auml;lls H&auml;llar, Str&auml;gn&auml;s</h2> <p class='small'>(<em><a href='https://goo.gl/maps/Miwiei1KqCx2BUAYA'>59.36309815334226, 17.042373214228594</a></em>)</p>";
-print "<p>Listen to earlier versions of the tunings:</p>";
+print "<p>Listen to earlier versions of the tunings. These recordings are maid with fairly simply contact microphones that are sensitive to various kinds of interference heard as a hum in the background. Hence, these recordings are mainly for referencing how the tuning changes over time, and do not have the kind of fidelity one would expect from a recording.</p>";
 
 print "<div id=\'audio\'>";
 
